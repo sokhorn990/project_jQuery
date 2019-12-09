@@ -1,85 +1,168 @@
-var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
-$(document).ready(() => {
-    $('#getData').on('change', () => {
-        var recipes = $('#getData').val();
-        chooseRecipe(recipes);
-    });
-});
-// get api [arrow function]
-var getAPI = (api) => {
+
+
+//get data
+function getDefaultRecipe() {
     $.ajax({
         dataType: 'json',
-        url: api,
-        success: (data) => getRecipes(data),
-        error: () => console.error("Cannot request data")
+        url: getUrl(),
+        success: (data) => defaultRecipe(data),
+        error: () => getError(),
     });
 }
-// get all recipe [name function]
-function getRecipes(datas) {
-    datas.recipes.forEach(recs => {
-        // your recipe can get here example: recs.name
-        getIngrediant(recs); // get all ingrediant
+function updateRecipe() {
+    $.ajax({
+        dataType: 'json',
+        url: getUrl(),
+        success: (data) => getRecipe(data),
+        error: () => getError(),
     });
+}
+function getUrl() {
+    var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    return url;
 }
 
-// get all ingrediant [name function]
-function getIngrediant(recipe) {
-    recipe.ingredients.forEach(cake => {
-        showIngrediantTable(cake);
+
+
+function getError() { console.log("Error") }
+function getRecipe(cake) {
+    var result = "";
+    cake.recipes.forEach(recipe => {
+        if (recipe.id == $('#select').val()) {
+            result += `
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <h3>${recipe.name}</h3>
+            </div>
+            <div class="col-6">
+                <img src="${recipe.iconUrl}" class="img-fluid" width="270px" alt="">
+            </div>
+           
+        </div>
+        `;
+            updateIngredient(recipe.ingredients);
+        }
     });
+    printOut("recipe", result);
 }
 
-// display ingrediant in table [arrow function]
-var showIngrediantTable = (show) => {
-    var ingrediant = "";
-    ingrediant += `
-    <tr>
-        <td><img src="${show.iconUrl}" width="25" class="img-fluid"></td>
-        <td>${show.quantity}</td>
-        <td>${show.unit[0]}</td>
-        <td>${show.name}</td>
-    </tr>
-    `;
-    $('#result').append(ingrediant);
+var member;
+$(document).ready(function () {
+    $('#select').on('change', function () {
+        getDefaultRecipe();
+        $("#input").fadeIn(100);
+
+        $("#decrease").on('click', function () {
+            var number_person = $('#person').val();
+            if (number_person > 1) {
+                updateRecipe();
+                member = parseInt(number_person) - 1;
+            }
+            descrease();
+        })
+        $("#increase").on("click", function () {
+            var number_person = $('#person').val();
+            if (number_person < 15) {
+                updateRecipe();
+                member = parseInt(number_person) + 1;
+            }
+            increase();
+        });
+    })
+});
+//end increase and decrease
+
+
+
+function defaultRecipe(cake) {
+    var result = "";
+    cake.recipes.forEach(recipe => {
+        if (recipe.id == $('#select').val()) {
+            defaultIngredient(recipe.ingredients);
+            result += `
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <h3>${recipe.name}</h3>
+            </div>
+            <div class="col-6">
+                <img src="${recipe.iconUrl}" class="img-fluid" width="270px" alt="">
+            </div>
+           
+        </div>
+        `;
+        }
+    });
+    printOut("recipe", result);
 }
-// choose recipe from select [arrow function]
-var chooseRecipe = (myRecipe) => {
-    var onlyNumber = parseInt(myRecipe);
-    switch (onlyNumber) {
-        case 0:
-            getAPI(url);
-            hideAlert();
-            break;
-        case 1:
-            // your code idea...
-            choose1();
-            break;
-        case 2:
-            // your code idea...
-            choose2();
-            break;
-        default: console.warn("You choose nothing");
+function defaultIngredient(ing) {
+    result = "";
+    ing.forEach(item => {
+        result += `
+        <div class="row">
+        <div class="col-md-2">
+        <img src="${item.iconUrl}" width="50px"><br><br><br>
+        </div>
+        <div class="col-md-2">
+            ${item.quantity}
+            ${item.unit.slice(0, 1).toUpperCase()}
+            </div>
+            <div class="col-md-2">
+            ${item.name}
+            </div>
+            <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
+            <div class="col-md-6" style="margin-left: -1px;">
+            <hr class="d-sm-block d-md-none">
+            </div>
+            </div>
+        `;
+    });
+    printOut('ingredient', result);
+}
+function updateIngredient(ing) {
+    result = "";
+    ing.forEach(item => {
+        result += `
+        <div class="row">
+        <div class="col-md-2">
+        <img src="${item.iconUrl}" width="50px"><br><br><br>
+        </div>
+        <div class="col-md-2">
+            ${item.quantity * addMember(member)}
+            ${item.unit.slice(0, 1).toUpperCase()}
+            </div>
+            <div class="col-md-2">
+            ${item.name}
+            </div>
+            <div class="border-left d-sm-none d-md-block" style="width:0 px;"></div>
+            <div class="col-md-6" style="margin-left: -1px;">
+            <hr class="d-sm-block d-md-none">
+            
+            </div>
+            </div>
+        `;
+    });
+    printOut('ingredient', result);
+}
+
+function printOut(elmentId, out) {
+    $('#' + elmentId).html(out);
+}
+function increase() {
+    var value = $("#person").val();
+    var inputValue = parseInt(value) + 1;
+    if (inputValue <= 15) {
+        $("#person").val(inputValue);
     }
 }
-// Demo test click [arrow function] this just the option function I test only
-// var choose1 = () => {
-//     var show = "";
-//     show += `
-//         <div class="alert alert-success">
-//             <strong>Good luck! </strong> try your best!
-//         </div>
-//     `;
-//     $('#result').html(show);
-// }
-// var choose2 = () => {
-//     var show = "";
-//     show += `
-//         // <div class="alert alert-warning">
-//         //     <strong>Good luck! </strong> try your best!
-//         // </div>
-//     `;
-//     $('#result').html(show);
-// }
-// var hideAlert = () => {
-//     $('.alert').hide();
-// }
+function descrease() {
+    var value = $("#person").val();
+    var inputValue = parseInt(value) - 1;
+    if (inputValue >= 1) {
+        $("#person").val(inputValue);
+    }
+}
+function addMember(member) {
+    return parseInt(member);
+}

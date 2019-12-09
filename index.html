@@ -5,43 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>String Text</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <select id="getData" class="form-control">
+                <select id="select" class="form-control">
                     <option value="" disabled selected>Choose Recipe</option>
-                    <option value="0">Nom Pom</option>
-                    <option value="1">Avocado</option>
-                </select><br>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="minus">-</button>
-                    </div>
-                    <input type="text" class="form-control text-center" disabled placeholder="0"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="add">+</button>
-                    </div>
-                </div>
+                    <option value="0">Avocado Shake (Toek KaLok)</option>
+                    <option value="1">French creps</option>
+                </select>
             </div>
             <div class="col-4"></div>
         </div>
     </div>
+    <div class="container mt-5" id="recipe"></div>
     <div class="container mt-5">
-        <div class="row">
-            <div class="card-body">
-                <table class="table table-borderless" id="result"></table>
+        <div class="row" id="input" style="display: none;"> 
+            <div class="col-3"></div>
+            <div class="col-3">  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Number of person</div>
+            <div class="col-3">
+                <form action="#">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-primary" id="decrease" type="button">-</button>
+                        </div>
+                        <input type="text" id="person" value="1" disabled class="form-control text-center">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" id="increase" type="button">+</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <div class="col-3"></div>
         </div>
     </div>
-    </div>
+    <div class="container" id="ingredient"></div>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/final_project.js"></script>
 </body>
 
