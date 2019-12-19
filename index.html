@@ -5,47 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Final Project</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>final_project</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <select id="select" class="form-control">
+                <select id="recipe" class="form-control">
                     <option value="" disabled selected>Choose Recipe</option>
-                    <option value="0">Avocado Shake (Toek KaLok)</option>
-                    <option value="1">French creps</option>
                 </select>
+                <br><br>
+                <p id="recipe_result"></p>
             </div>
             <div class="col-4"></div>
+            <div class="container" id="result_ingradient"></div>
+            <div  id="instruction" style="margin-left: 590px; margin-top: -150px;"></div>
         </div>
     </div>
-    <div class="container mt-5" id="recipe"></div>
-    <div class="container mt-5">
-        <div class="row" id="input" style="display: none;"> 
-            <div class="col-3"></div>
-            <div class="col-3">  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Number of person</div>
-            <div class="col-3">
-                <form action="#">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-primary" id="decrease" type="button">-</button>
-                        </div>
-                        <input type="text" id="person" value="1" disabled class="form-control text-center">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" id="increase" type="button">+</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-3"></div>
-        </div>
     </div>
-    <div class="container" id="ingredient"></div>
-    <script src="js/jquery-3.4.1.min.js"></script>
+
     <script src="js/final_project.js"></script>
 </body>
 

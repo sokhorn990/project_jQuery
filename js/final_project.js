@@ -1,168 +1,179 @@
-
-
-//get data
-function getDefaultRecipe() {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => defaultRecipe(data),
-        error: () => getError(),
-    });
-}
-function updateRecipe() {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => getRecipe(data),
-        error: () => getError(),
-    });
-}
 function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
-
-
-
-function getError() { console.log("Error") }
-function getRecipe(cake) {
-    var result = "";
-    cake.recipes.forEach(recipe => {
-        if (recipe.id == $('#select').val()) {
-            result += `
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3">
-                <h3>${recipe.name}</h3>
-            </div>
-            <div class="col-6">
-                <img src="${recipe.iconUrl}" class="img-fluid" width="270px" alt="">
-            </div>
-           
-        </div>
-        `;
-            updateIngredient(recipe.ingredients);
-        }
+$(document).ready(function () {
+    requestApi();
+    $("#recipe").on('change', function () {
+        var id = $("#recipe").val();
+        recipe(id);
+    })
+})
+function requestApi() {
+    $.ajax({
+        dataType: "json",
+        url: getUrl(),
+        success: (data) => chooseRecipe(data.recipes),
+        error: () => console.log("Error"),
+    })
+}
+var allData = [];
+function chooseRecipe(recipe) {
+    allData = recipe;
+    var option = "";
+    recipe.forEach(item => {
+        option += `<option value="${item.id}">${item.name}</option>`;
     });
-    printOut("recipe", result);
+    $("#recipe").append(option);
 }
 
-var member;
-$(document).ready(function () {
-    $('#select').on('change', function () {
-        getDefaultRecipe();
-        $("#input").fadeIn(100);
+//  get old guest
+var getQuanlities = [];
+// you
+var oldGuest = 0;
 
-        $("#decrease").on('click', function () {
-            var number_person = $('#person').val();
-            if (number_person > 1) {
-                updateRecipe();
-                member = parseInt(number_person) - 1;
-            }
-            descrease();
-        })
-        $("#increase").on("click", function () {
-            var number_person = $('#person').val();
-            if (number_person < 15) {
-                updateRecipe();
-                member = parseInt(number_person) + 1;
-            }
-            increase();
-        });
+function recipe(id) {
+    allData.forEach(item => {
+        if (item.id == id) {
+            eachRrecipe(item.name, item.iconUrl,item.nbGuests);
+            eachIngredient(item.ingredients);
+            eachInstruction(item.instructions);
+            //you
+            getQuanlities = item.ingredients;
+            oldGuest = item.nbGuests;
+        }
+    });
+}
+
+function eachRrecipe(name, img,nbGuests) {
+    var result = "";
+    result += `
+    <div class="row">
+    <div class="col-6">
+        <h3>${name}</h3>
+    </div>
+    <div class="col-6">
+        <img src="${img}" class="img-fluid" width="270px" alt="">
+    </div>
+
+    <form action="#">
+        <div class="row"> 
+        <div class="input-group mb-3">
+        <p class="mt-5">Number of person</p>
+            <div class="input-group-prepend" style="margin-left: 150px; margin-top: -35px;">
+                    <button class="btn btn-primary" id="decrease" type="button">-</button>
+                    <input type="text" id="person" style="width:115px" class="text-center" value="${nbGuests}" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-success" id="increase" type="button">+</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    </div>
+    <div class="row">
+        <h3  style="margin-left: -230px;">Ingredients</h3>
+        <h3  style="margin-left: 460px;">instructions</h3>
+    </div>
+    `;
+    $("#recipe_result").html(result);
+}
+
+function eachIngredient(ingredients) {
+    var result_ingradient = "";
+    ingredients.forEach(el => {
+        result_ingradient += ` 
+        <div class="row">
+        <div class="col-md-2">
+             <img src="${el.iconUrl}" width="40px"><br><br>
+        </div>
+        <div class="col-md-2">
+            ${el.quantity} 
+            ${el.unit[0]}
+        </div>
+        <div class="col-md-2">
+         ${el.name}
+        </div>
+    </div>
+    <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
+      `;
+    });
+    $("#result_ingradient").html(result_ingradient);
+    //new add
+    $("#decrease").on('click', function () {
+        var value = parseInt($('#person').val());
+        descrease(value);
+    })
+    $("#increase").on("click", function () {
+        var value = parseInt($('#person').val());
+        increase(value);
+    });
+    //end new add
+}
+
+//get Instruction
+function eachInstruction(instructions) {
+    var instruction = "";
+    var steb = instructions.split("<step>");
+    for (let i = 1; i < steb.length; i++) {
+        instruction += `
+      <h4 class="text-primary"> step ${i}</h4>
+  ${steb[i]}
+        `;
+    }
+    $('#instruction').html(instruction);
+}
+
+//increase
+// var value_person;
+function increase(number) {
+   var add = parseInt(number) + 1;
+    if (add <= 15) {
+        $("#person").val(add);
+        getPerson($("#person").val());
+    }
+}   
+
+function descrease(number) {
+  var  value_person = parseInt(number) - 1;
+    if (value_person >= 1) {
+        $("#person").val(value_person);
+        getPerson($("#person").val());
+    }
+}
+
+$(document).ready(function () {
+    $("#recipe").on('change', function () {
+        var id = $("#recipe").val();
+        recipe(id);
     })
 });
-//end increase and decrease
 
-
-
-function defaultRecipe(cake) {
+//you
+//update ingredient 
+function getPerson(person) {
     var result = "";
-    cake.recipes.forEach(recipe => {
-        if (recipe.id == $('#select').val()) {
-            defaultIngredient(recipe.ingredients);
-            result += `
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3">
-                <h3>${recipe.name}</h3>
-            </div>
-            <div class="col-6">
-                <img src="${recipe.iconUrl}" class="img-fluid" width="270px" alt="">
-            </div>
-           
-        </div>
-        `;
-        }
-    });
-    printOut("recipe", result);
-}
-function defaultIngredient(ing) {
-    result = "";
-    ing.forEach(item => {
+    var quantities;
+    var newQuanlity;
+    getQuanlities.forEach(element => {
+        const { quantity, iconUrl, name, unit } = element;
+        quantities = quantity / oldGuest;
+        newQuanlity = quantities * person;
         result += `
         <div class="row">
         <div class="col-md-2">
-        <img src="${item.iconUrl}" width="50px"><br><br><br>
+             <img src="${iconUrl}" width="40px"><br><br>
         </div>
         <div class="col-md-2">
-            ${item.quantity}
-            ${item.unit.slice(0, 1).toUpperCase()}
-            </div>
-            <div class="col-md-2">
-            ${item.name}
-            </div>
-            <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
-            <div class="col-md-6" style="margin-left: -1px;">
-            <hr class="d-sm-block d-md-none">
-            </div>
-            </div>
-        `;
-    });
-    printOut('ingredient', result);
-}
-function updateIngredient(ing) {
-    result = "";
-    ing.forEach(item => {
-        result += `
-        <div class="row">
-        <div class="col-md-2">
-        <img src="${item.iconUrl}" width="50px"><br><br><br>
+            ${newQuanlity} 
+            ${unit[0]}
         </div>
         <div class="col-md-2">
-            ${item.quantity * addMember(member)}
-            ${item.unit.slice(0, 1).toUpperCase()}
-            </div>
-            <div class="col-md-2">
-            ${item.name}
-            </div>
-            <div class="border-left d-sm-none d-md-block" style="width:0 px;"></div>
-            <div class="col-md-6" style="margin-left: -1px;">
-            <hr class="d-sm-block d-md-none">
-            
-            </div>
-            </div>
-        `;
+         ${name}
+        </div>
+    </div>
+    <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
+      `;
     });
-    printOut('ingredient', result);
-}
-
-function printOut(elmentId, out) {
-    $('#' + elmentId).html(out);
-}
-function increase() {
-    var value = $("#person").val();
-    var inputValue = parseInt(value) + 1;
-    if (inputValue <= 15) {
-        $("#person").val(inputValue);
-    }
-}
-function descrease() {
-    var value = $("#person").val();
-    var inputValue = parseInt(value) - 1;
-    if (inputValue >= 1) {
-        $("#person").val(inputValue);
-    }
-}
-function addMember(member) {
-    return parseInt(member);
+     $("#result_ingradient").html(result);
 }
