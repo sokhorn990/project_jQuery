@@ -7,6 +7,7 @@ $(document).ready(function () {
     $("#recipe").on('change', function () {
         var id = $("#recipe").val();
         recipe(id);
+        $('#h2').hide();
     })
 })
 function requestApi() {
@@ -29,7 +30,6 @@ function chooseRecipe(recipe) {
 
 //  get old guest
 var getQuanlities = [];
-// you
 var oldGuest = 0;
 
 function recipe(id) {
@@ -38,7 +38,7 @@ function recipe(id) {
             eachRrecipe(item.name, item.iconUrl,item.nbGuests);
             eachIngredient(item.ingredients);
             eachInstruction(item.instructions);
-            //you
+            
             getQuanlities = item.ingredients;
             oldGuest = item.nbGuests;
         }
@@ -78,7 +78,7 @@ function eachRrecipe(name, img,nbGuests) {
     `;
     $("#recipe_result").html(result);
 }
-
+//loop for get each ingredient
 function eachIngredient(ingredients) {
     var result_ingradient = "";
     ingredients.forEach(el => {
@@ -99,7 +99,7 @@ function eachIngredient(ingredients) {
       `;
     });
     $("#result_ingradient").html(result_ingradient);
-    //new add
+    
     $("#decrease").on('click', function () {
         var value = parseInt($('#person').val());
         descrease(value);
@@ -108,10 +108,10 @@ function eachIngredient(ingredients) {
         var value = parseInt($('#person').val());
         increase(value);
     });
-    //end new add
+    
 }
 
-//get Instruction
+//get Instruction of recipe
 function eachInstruction(instructions) {
     var instruction = "";
     var steb = instructions.split("<step>");
@@ -124,8 +124,7 @@ function eachInstruction(instructions) {
     $('#instruction').html(instruction);
 }
 
-//increase
-// var value_person;
+//increase of number person
 function increase(number) {
    var add = parseInt(number) + 1;
     if (add <= 15) {
@@ -133,7 +132,7 @@ function increase(number) {
         getPerson($("#person").val());
     }
 }   
-
+ //decrease of number person
 function descrease(number) {
   var  value_person = parseInt(number) - 1;
     if (value_person >= 1) {
@@ -149,7 +148,6 @@ $(document).ready(function () {
     })
 });
 
-//you
 //update ingredient 
 function getPerson(person) {
     var result = "";
