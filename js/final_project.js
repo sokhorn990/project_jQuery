@@ -8,6 +8,8 @@ $(document).ready(function () {
         var id = $("#recipe").val();
         recipe(id);
         $('#h2').hide();
+        $('#myCarousel').hide();
+        $('#under').hide();
     })
 })
 function requestApi() {
