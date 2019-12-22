@@ -1,5 +1,5 @@
 body{
-    background: url(food.jpg);
+    background: url(img/food.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -9,3 +9,9 @@ h1{
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-shadow: 90px;
 }
+marquee{
+    font-size: 30px;
+    font-weight: 800;
+    color: #da4343;
+    font-family: sans-serif;
+    }

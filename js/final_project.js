@@ -10,6 +10,7 @@ $(document).ready(function () {
         $('#h2').hide();
         $('#myCarousel').hide();
         $('#under').hide();
+        $('#mar').hide();
     })
 })
 function requestApi() {
@@ -37,17 +38,17 @@ var oldGuest = 0;
 function recipe(id) {
     allData.forEach(item => {
         if (item.id == id) {
-            eachRrecipe(item.name, item.iconUrl,item.nbGuests);
+            eachRrecipe(item.name, item.iconUrl, item.nbGuests);
             eachIngredient(item.ingredients);
             eachInstruction(item.instructions);
-            
+
             getQuanlities = item.ingredients;
             oldGuest = item.nbGuests;
         }
     });
 }
 
-function eachRrecipe(name, img,nbGuests) {
+function eachRrecipe(name, img, nbGuests) {
     var result = "";
     result += `
     <div class="row">
@@ -75,7 +76,7 @@ function eachRrecipe(name, img,nbGuests) {
     </div>
     <div class="row">
         <h3  style="margin-left: -230px;">Ingredients</h3>
-        <h3  style="margin-left: 460px;">instructions</h3>
+        <h3  style="margin-left: 460px;">Instructions</h3>
     </div>
     `;
     $("#recipe_result").html(result);
@@ -101,7 +102,7 @@ function eachIngredient(ingredients) {
       `;
     });
     $("#result_ingradient").html(result_ingradient);
-    
+
     $("#decrease").on('click', function () {
         var value = parseInt($('#person').val());
         descrease(value);
@@ -110,7 +111,7 @@ function eachIngredient(ingredients) {
         var value = parseInt($('#person').val());
         increase(value);
     });
-    
+
 }
 
 //get Instruction of recipe
@@ -128,15 +129,15 @@ function eachInstruction(instructions) {
 
 //increase of number person
 function increase(number) {
-   var add = parseInt(number) + 1;
+    var add = parseInt(number) + 1;
     if (add <= 15) {
         $("#person").val(add);
         getPerson($("#person").val());
     }
-}   
- //decrease of number person
+}
+//decrease of number person
 function descrease(number) {
-  var  value_person = parseInt(number) - 1;
+    var value_person = parseInt(number) - 1;
     if (value_person >= 1) {
         $("#person").val(value_person);
         getPerson($("#person").val());
@@ -175,5 +176,5 @@ function getPerson(person) {
     <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
       `;
     });
-     $("#result_ingradient").html(result);
+    $("#result_ingradient").html(result);
 }
