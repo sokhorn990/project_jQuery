@@ -7,10 +7,7 @@ $(document).ready(function () {
     $("#recipe").on('change', function () {
         var id = $("#recipe").val();
         recipe(id);
-        $('#h2').hide();
-        $('#myCarousel').hide();
-        $('#under').hide();
-        $('#mar').hide();
+        $('#h2,#myCarousel,#under,#mar').hide();
     })
 })
 function requestApi() {
@@ -92,7 +89,7 @@ function eachIngredient(ingredients) {
         </div>
         <div class="col-md-2">
             ${el.quantity} 
-            ${el.unit[0]}
+            ${el.unit[0].toLowerCase()}
         </div>
         <div class="col-md-2">
          ${el.name}
