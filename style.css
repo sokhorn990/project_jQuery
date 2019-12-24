@@ -1,5 +1,5 @@
 body{
-    background: url(img/food.jpg);
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('img/food.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -8,6 +8,15 @@ h1{
     text-align: center;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-shadow: 90px;
+}
+h4{
+    font-size: 20px;
+}
+p{
+    font-size: 18px;
+}
+.card{
+    font-size: 18px;
 }
 marquee{
     font-size: 30px;
@@ -19,10 +28,13 @@ marquee{
     #line {
 
         border-left: 2px solid;
-        height: 380px;
+        height: 330px;
         position: absolute;
         left: -10%;
         color: #2697f3;
         /* margin-top: 90px; */
         margin-left: 80px;
+    }
+    #container{
+        background: rgb(199, 199, 198);
     }

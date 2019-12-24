@@ -87,19 +87,11 @@ function eachIngredient(ingredients) {
     var result_ingradient = "";
     ingredients.forEach(el => {
         result_ingradient += ` 
-        <div class="row">
-        <div class="col-md-2">
-             <img src="${el.iconUrl}" width="40px"><br><br>
-        </div>
-        <div class="col-md-2">
-            ${el.quantity} 
-            ${el.unit[0].toLowerCase()}
-        </div>
-        <div class="col-md-2">
-         ${el.name}
-        </div>
-    </div>
-    <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
+        <tr>
+        <td><img src="${el.iconUrl}" width="80"></td>
+        <td>${el.quantity}${el.unit[0].toLowerCase()}</td>
+        <td>${el.name}</td>
+    </tr>
       `;
     });
     $("#result_ingradient").html(result_ingradient);
@@ -122,7 +114,7 @@ function eachInstruction(instructions) {
     for (let i = 1; i < steb.length; i++) {
         instruction += `
       <h4 class="text-primary"> step ${i}</h4>
-  ${steb[i]}
+ <p> ${steb[i]}</p>
         `;
     }
     $('#instruction').html(instruction);
@@ -162,19 +154,12 @@ function getPerson(person) {
         quantities = quantity / oldGuest;
         newQuanlity = quantities * person;
         result += `
-        <div class="row">
-        <div class="col-md-2">
-             <img src="${iconUrl}" width="40px"><br><br>
-        </div>
-        <div class="col-md-2">
-            ${newQuanlity} 
-            ${unit[0]}
-        </div>
-        <div class="col-md-2">
-         ${name}
-        </div>
-    </div>
-    <div class="border-left d-sm-none d-md-block" style="width: 0px;"></div>
+    <tr>
+        <td><img src="${iconUrl}" width="80"></td>
+        <td>${newQuanlity}
+        ${unit[0].toLowerCase()}</td>
+        <td>${name}</td>
+    </tr>
       `;
     });
     $("#result_ingradient").html(result);
