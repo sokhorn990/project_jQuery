@@ -3,14 +3,14 @@ function getUrl() {
     return url;
 }
 $(document).ready(function () {
-    $('#line').hide();
+    // $('#line').hide();
     $('.card').hide();
     requestApi();
     $("#recipe").on('change', function () {
         var id = $("#recipe").val();
         recipe(id);
         $('#h2,#myCarousel,#under,#mar').hide();
-        $('#line').show();
+        // $('#line').show();
         $('.card').show();
     })
 })
@@ -68,7 +68,7 @@ function eachRrecipe(name, img, nbGuests) {
                     <button class="btn btn-danger" id="decrease" type="button">-</button>
                     <input type="text" id="person" style="width:115px" class="text-center" value="${nbGuests}" disabled>
                 <div class="input-group-append">
-                    <button class="btn btn-success" id="increase" type="button">+</button>
+                    <button class="btn btn-primary" id="increase" type="button">+</button>
                 </div>
             </div>
         </div>

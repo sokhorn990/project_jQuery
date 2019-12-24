@@ -1,5 +1,5 @@
 body{
-    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('img/food.jpg');
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('img/food.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -25,16 +25,15 @@ marquee{
     font-family: sans-serif;
     }
 
-    #line {
+/* #line {
 
-        border-left: 2px solid;
-        height: 330px;
-        position: absolute;
-        left: -10%;
-        color: #2697f3;
-        /* margin-top: 90px; */
-        margin-left: 80px;
-    }
-    #container{
-        background: rgb(199, 199, 198);
-    }
+    border-left: 2px solid;
+    height: 330px;
+    position: absolute;
+    left: -10%;
+    color: #2697f3;
+    margin-left: 80px;
+} */
+#container{
+    background: rgb(199, 199, 198);
+}
