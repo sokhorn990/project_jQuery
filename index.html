@@ -25,12 +25,11 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                    <img src="/img/pic2.png" alt="Chicago" style="width:100%;">
-                
+                <img src="/img/pic2.png" alt="Chicago" style="width:100%;">
             </div>
 
             <div class="item">
-                    <img src="/img/pic1.png" alt="Los Angeles" style="width:100%;">
+                <img src="img/pic4.png" alt="New York" style="width:100%;">
             </div>
 
             <div class="item">
@@ -38,7 +37,7 @@
             </div>
 
             <div class="item">
-                <img src="img/pic4.png" alt="New York" style="width:100%;">
+                <img src="/img/pic1.png" alt="Los Angeles" style="width:100%;">
             </div>
 
             <div class="item">
@@ -61,24 +60,43 @@
     <marquee id="mar">សូមស្វាគមន៍មកកាន់អាហាររបស់ ភី អិន ស៊ី ដែលមានរសជាតិឈ្ងុយឆ្ងាញ់ពិសារ &#127858; &#127860;</marquee>
     <!-- end slide show -->
     <h1 id="h2">Welcome to our Food <span style='font-size:70px;'>&#127869;</span></h1>
+
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <select id="recipe" class="form-control">
-                    <option value="" disabled selected>Choose Recipe</option>
-                </select>
-                <br><br>
-                <p id="recipe_result"></p>
+        <div class="container">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <select id="recipe" class="form-control">
+                        <option value="" disabled selected>Choose Recipe</option>
+                    </select>
+                    <br><br>
+                    <p id="recipe_result"></p>
+                </div>
+                <div class="col-4"></div>
             </div>
-            <div class="col-4"></div>
-         
-            <div class="container" id="result_ingradient"></div>
-            <div class="lines" id="line"></div>
-            <div id="instruction" style="margin-left: 590px; margin-top: -150px;"></div>
-              </div>
         </div>
-    
+        <div class="row">
+            <div class="col-6">
+              <div class="card">
+                  <div class="card-body">
+                        <div id="result_ingradient"></div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-1">
+                <div class="lines" id="line"></div>
+            </div>
+            <div class="col-5">
+               <div class="card">
+                   <div class="card-body">
+                        <div id="instruction"></div>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
     <script src="js/final_project.js"></script>
 </body>
 

@@ -21,8 +21,8 @@ marquee{
         border-left: 2px solid;
         height: 380px;
         position: absolute;
-        left: 40%;
+        left: -10%;
         color: #2697f3;
-        margin-top: 290px;
+        /* margin-top: 90px; */
         margin-left: 80px;
     }

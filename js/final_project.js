@@ -4,12 +4,14 @@ function getUrl() {
 }
 $(document).ready(function () {
     $('#line').hide();
+    $('.card').hide();
     requestApi();
     $("#recipe").on('change', function () {
         var id = $("#recipe").val();
         recipe(id);
         $('#h2,#myCarousel,#under,#mar').hide();
         $('#line').show();
+        $('.card').show();
     })
 })
 function requestApi() {
